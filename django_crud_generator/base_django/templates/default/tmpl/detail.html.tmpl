@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+{% load static %}
+{% load form_utils %}
+{% block content %}
+    <h3 class="page-header">View ${model_name}</h3>
+
+    <div class="row">
+        ${block_readonly_form}
+    </div>
+    <hr/>
+    <div id="actions" class="row">
+        <div class="col-md-12">
+            <a class="btn btn-primary" href="{% url '${model_prefix}_update' ${model_name_lower}.pk %}">
+                Edit
+            </a>
+            <a href="{% url '${model_prefix}_list' %}" class="btn btn-default">Back</a>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $('#${model_name_lower}_link').addClass('active');
+        });
+    </script>
+{% endblock %}
