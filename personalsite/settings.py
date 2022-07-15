@@ -119,7 +119,7 @@ STATIC_URL = '/static/'
 INSTALLED_APPS += ['rest_framework', 'rest_framework.authtoken', 'django.contrib.sites',
                    'allauth', 'allauth.account',
                    'allauth.socialaccount', 'rest_auth', 'rest_auth.registration', 'corsheaders', 'app',
-                   'django_crud_generator', 'django_filters']
+                   'django_filters']
 
 SITE_ID = 1
 
