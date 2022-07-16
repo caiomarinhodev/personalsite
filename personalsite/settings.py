@@ -123,6 +123,8 @@ INSTALLED_APPS += ['rest_framework', 'rest_framework.authtoken', 'django.contrib
 
 SITE_ID = 1
 
+STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
 MIDDLEWARE += ['corsheaders.middleware.CorsMiddleware']
