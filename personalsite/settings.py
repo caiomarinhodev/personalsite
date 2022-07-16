@@ -124,7 +124,7 @@ INSTALLED_APPS += ['rest_framework', 'rest_framework.authtoken', 'django.contrib
 
 SITE_ID = 1
 
-STATICFILES_STORAGE = 'whitenoise.django.GzipManifestStaticFilesStorage'
+STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
