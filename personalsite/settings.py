@@ -22,12 +22,21 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '^71brnfp&q_n0^q70!+^hjl@yece^3-l+z*psq#mh99s(l=mrj'
+# SECRET_KEY = '^71brnfp&q_n0^q70!+^hjl@yece^3-l+z*psq#mh99s(l=mrj'
+# SECURITY WARNING: keep the secret key used in production secret!
+SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+# DEBUG = False
 
-ALLOWED_HOSTS = []
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = 'RENDER' not in os.environ
+
+ALLOWED_HOSTS = ['*']
+
+RENDER_EXTERNAL_HOSTNAME = os.environ.get('RENDER_EXTERNAL_HOSTNAME')
+if RENDER_EXTERNAL_HOSTNAME:
+    ALLOWED_HOSTS.append(RENDER_EXTERNAL_HOSTNAME)
 
 # Application definition
 
@@ -124,7 +133,7 @@ INSTALLED_APPS += ['rest_framework', 'rest_framework.authtoken', 'django.contrib
 
 SITE_ID = 1
 
-STATICFILES_STORAGE = "whitenoise.storage.CompressedStaticFilesStorage"
+STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
@@ -134,8 +143,12 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
 
-db_from_env = dj_database_url.config(conn_max_age=500)
-DATABASES['default'].update(db_from_env)
+# db_from_env = dj_database_url.config(default='postgresql://postgres:postgres@localhost:5432/personalsite',
+#                                      conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
+
+# Database
+# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 FILE_CHARSET = 'UTF-8'
 
