@@ -1,5 +1,4 @@
 beautifulsoup4
-cryptography
 dj-database-url
 Django
 django-cors-headers
