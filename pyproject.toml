@@ -6,7 +6,7 @@ authors = ["Caio Barbosa <caio.barbosa@virtus.ufcg.edu.br>"]
 readme = "README.md"
 
 [tool.poetry.dependencies]
-python = "3.8"
+python = "3.8.13"
 beautifulsoup4 = "^4.11.1"
 dj-database-url = "^1.0.0"
 psycopg2-binary = "^2.9.5"
