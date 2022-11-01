@@ -3,8 +3,10 @@
 set -o errexit
 
 python -m pip install --upgrade pip
-python -m pip install --force-reinstall -U setuptools
+
 poetry install
+
+python -m pip install --force-reinstall -U setuptools
 
 python manage.py collectstatic --no-input
 python manage.py makemigrations
