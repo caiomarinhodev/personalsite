@@ -1,6 +1,6 @@
 beautifulsoup4
 dj-database-url
-Django
+Django==3.2.16
 django-cors-headers
 django-extensions
 django-js-asset

@@ -18,16 +18,7 @@ import dj_database_url
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
-# Quick-start development settings - unsuitable for production
-# See https://docs.djangoproject.com/en/3.1/howto/deployment/checklist/
-
-# SECURITY WARNING: keep the secret key used in production secret!
-# SECRET_KEY = '^71brnfp&q_n0^q70!+^hjl@yece^3-l+z*psq#mh99s(l=mrj'
-# SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = os.environ.get('SECRET_KEY', default='your secret key')
-
-# SECURITY WARNING: don't run with debug turned on in production!
-# DEBUG = False
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = 'RENDER' not in os.environ
@@ -47,17 +38,28 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'rest_framework.authtoken',
+    'django.contrib.sites',
+    'allauth', 'allauth.account',
+    'allauth.socialaccount',
+    'rest_auth',
+    'rest_auth.registration',
+    'corsheaders',
+    'app',
+    'django_filters'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
-    "whitenoise.middleware.WhiteNoiseMiddleware",
+    'whitenoise.middleware.WhiteNoiseMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware'
 ]
 
 ROOT_URLCONF = 'personalsite.urls'
@@ -89,6 +91,11 @@ DATABASES = {
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
+
+# To deploy on Render.com
+# db_from_env = dj_database_url.config(default='postgresql://postgres:postgres@localhost:5432/personalsite',
+#                                      conn_max_age=600)
+# DATABASES['default'].update(db_from_env)
 
 # Password validation
 # https://docs.djangoproject.com/en/3.1/ref/settings/#auth-password-validators
@@ -126,29 +133,15 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
-INSTALLED_APPS += ['rest_framework', 'rest_framework.authtoken', 'django.contrib.sites',
-                   'allauth', 'allauth.account',
-                   'allauth.socialaccount', 'rest_auth', 'rest_auth.registration', 'corsheaders', 'app',
-                   'django_filters']
-
 SITE_ID = 1
 
 STATICFILES_STORAGE = "whitenoise.storage.CompressedManifestStaticFilesStorage"
 
 PROJECT_ROOT = os.path.dirname(os.path.abspath(__file__))
 
-MIDDLEWARE += ['corsheaders.middleware.CorsMiddleware']
-
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
 STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static'), ]
-
-# db_from_env = dj_database_url.config(default='postgresql://postgres:postgres@localhost:5432/personalsite',
-#                                      conn_max_age=600)
-# DATABASES['default'].update(db_from_env)
-
-# Database
-# https://docs.djangoproject.com/en/3.0/ref/settings/#databases
 
 FILE_CHARSET = 'UTF-8'
 
@@ -159,7 +152,5 @@ LOGOUT_REDIRECT_URL = '/'
 LOGIN_REDIRECT_URL = '/'
 
 FILTERS_DEFAULT_LOOKUP_EXPR = 'icontains'
-
-ALLOWED_HOSTS += ['*']
 
 REST_FRAMEWORK = {'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',), }
